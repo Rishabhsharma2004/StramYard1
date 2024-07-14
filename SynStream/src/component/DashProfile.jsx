@@ -19,7 +19,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function DashProfile() {
-  const { currentUser, error, loading } = useSelector((state) => state.user);
+  const { currentUser, loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadprogress, setImageFileUploadProgress] = useState(null);
@@ -30,6 +30,7 @@ export default function DashProfile() {
   const [imageFileUplaoding, setImageFileUplaoding] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
+  console.log(loading);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
