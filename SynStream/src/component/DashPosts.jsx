@@ -76,11 +76,13 @@ export default function DashPosts() {
                 key={index}
                 className="w-full h-96 flex flex-col justify-between overflow-hidden mb-5 hover:scale-105"
               >
-                <img
+              <Link to={`/post/${post.slug}`}>
+              <img
                   src={post.image}
                   alt={post.title}
                   className="w-full h-40 object-cover mt-20"
                 />
+              </Link>
                 <div className="p-4 flex flex-col justify-between flex-grow">
                   <Link to="#">
                     <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white overflow-hidden text-ellipsis whitespace-nowrap">

@@ -11,6 +11,8 @@ import Footer from './component/Footer'
 import PrivateRoute from './component/PrivateRoute'
 import OnlyAdminPrivateRoute from './component/OnlyAdminPrivateRoute'
 import CreatePost from "../src/pages/CreatePost"
+import UpdatePost from './pages/UpdatePost'
+import PostPage from './pages/PostPage'
 export default function App() {
   return (
      <BrowserRouter>
@@ -24,9 +26,11 @@ export default function App() {
           <Route path='/dashboard' element ={<Dashboard />}></Route>
           </Route>
           <Route element = {<OnlyAdminPrivateRoute/>}>
-          <Route path='/create-post' element ={<CreatePost/>}></Route>
+          <Route path='/create-post' element ={<CreatePost/>}/>
+          <Route path='/update-post/:postId' element ={<UpdatePost/>}/>
           </Route>
           <Route path='/project' element ={<Project />}></Route>
+          <Route path='/post/:postSlug' element ={<PostPage />}></Route>
         </Routes>
         <Footer/>
      </BrowserRouter>
