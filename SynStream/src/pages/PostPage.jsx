@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import CallToAction from '../component/CallToAction';
 export default function PostPage() {
     const {postSlug} = useParams();
     const [loading, setLoading] = useState(true);
@@ -51,5 +52,8 @@ export default function PostPage() {
     <span>{post && (post.content.length / 1000).toFixed(0)} mins read</span>
   </div>
   <div className='p-3 max-w-5xl mx-auto w-full post-content' dangerouslySetInnerHTML={{__html: post && post.content}}></div>
+  <div className="max-w-4xl mx-auto w-full">
+    <CallToAction/>
+  </div>
   </main>
 }
