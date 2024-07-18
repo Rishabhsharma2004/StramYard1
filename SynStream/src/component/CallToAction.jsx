@@ -33,8 +33,8 @@ export default function CallToAction() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Business News</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <h1 className="text-2xl font-bold mb-4">Tech News</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {currentArticles.length > 0 ? (
           currentArticles.map((article, index) => (
             <div key={index} className="max-w-sm rounded overflow-hidden shadow-lg">
@@ -42,8 +42,8 @@ export default function CallToAction() {
                 <img className="w-full h-48 object-cover" src={article.urlToImage} alt={article.title} />
               )}
               <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{article.title}</div>
-                <p className="text-gray-700 text-base">
+                <div className="font-bold text-xl mb-2">{article.title !== null && article.title.length > 40 ? `${article.title.substring(0, 40)}...` : article.title}</div>
+                <p className="text-gray-700 text-base dark:text-gray-200">
                   {article.description !== null && article.description.length > 100 ? `${article.description.substring(0, 100)}...` : article.description}
                 </p>
               </div>

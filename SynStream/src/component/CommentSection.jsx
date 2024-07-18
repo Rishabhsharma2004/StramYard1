@@ -1,0 +1,93 @@
+import { Alert, Button, Textarea } from "flowbite-react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { FaPaperPlane } from "react-icons/fa";
+export default function CommentSection({ postId }) {
+  const { currentUser } = useSelector((state) => state.user);
+  const [comment, setcomment] = useState("");
+  const [commentError, setCommentError] = useState('');
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+    if (comment.length > 250) {
+      return;
+    }
+    try {
+      const res = await fetch("/api/comment/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: comment,
+          postId,
+          userId: currentUser._id,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setcomment("");
+        setCommentError('');
+      }
+    } catch (error) {
+     setCommentError(error.message);
+    }
+  };
+  return (
+    <div>
+      {currentUser ? (
+        <div className="flex gap-1 my-5 text-sm text-gray-500">
+          <p>Signed in as:</p>
+          <img
+            className="h-5 w-5 object-cover rounded-full"
+            src={currentUser.profilePicture}
+            alt=""
+          />
+          <Link
+            className=" text-cyan-500 hover:underline"
+            to={"/dashboard?tab=profile"}
+          >
+            @{currentUser.username}
+          </Link>
+        </div>
+      ) : (
+        <div className=" text-sm text-teal-500 my-5 flex gap-1">
+          You must be signed in to comment,
+          <Link className=" text-blue-500 hover:underline" to={"/sign-in"}>
+            Sign in
+          </Link>
+        </div>
+      )}
+      {currentUser && (
+        <form
+          onSubmit={handelSubmit}
+          className=" border border-teal-500 rounded-md p-3"
+        >
+          <Textarea
+            placeholder="Add a comment..."
+            maxLength="250"
+            rows={3}
+            onChange={(e) => setcomment(e.target.value)}
+            value={comment}
+          />
+          <div className=" flex justify-between mt-5 items-center">
+            {comment.length >= 250 ? (
+              <p className=" text-red-600">Comment max length 250</p>
+            ) : (
+              <p className="text-gray-500 text-xs">
+                {250 - comment.length} characters remaining
+              </p>
+            )}
+
+            <Button outline type="submit">
+              <FaPaperPlane className="p-0 h-5 w-10" />
+            </Button>
+          </div>
+          {commentError && (
+            <Alert color="failure" className="mt-5">
+              {commentError}
+            </Alert>
+          )}
+        </form>
+      )}
+    </div>
+  );
+}
