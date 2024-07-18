@@ -1,12 +1,14 @@
 import { Alert, Button, Textarea } from "flowbite-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaPaperPlane } from "react-icons/fa";
+import CommentPage from "../component/CommentPage";
 export default function CommentSection({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setcomment] = useState("");
   const [commentError, setCommentError] = useState('');
+  const [comments, setcomments] = useState([]);
   const handelSubmit = async (e) => {
     e.preventDefault();
     if (comment.length > 250) {
@@ -26,11 +28,27 @@ export default function CommentSection({ postId }) {
       if (res.ok) {
         setcomment("");
         setCommentError('');
+        setcomments([data, ...comments])
       }
     } catch (error) {
      setCommentError(error.message);
     }
   };
+useEffect(()=>{
+   const getComments = async () =>{
+     try{
+       const res = await fetch(`/api/comment/getPostComment/${postId}`);
+       const data = await res.json();
+       if(res.ok){
+         setcomments(data);
+       }
+     }catch(error){
+       console.log(error.message);
+     }
+   }
+   getComments();
+}, [postId])
+
   return (
     <div>
       {currentUser ? (
@@ -87,6 +105,21 @@ export default function CommentSection({ postId }) {
             </Alert>
           )}
         </form>
+      )}
+      {comments.length === 0 ? (
+        <p className="text-sm my-5">No comments yet!</p>
+      ):(
+        <>
+        <div className="text-sm my-5 flex items-center gap-1">
+          <p>Comments</p>
+          <div className="border border-gray-400 py-1 px-2 rounded-sm">
+            <p>{comments.length}</p>
+          </div>
+        </div>
+        {comments.map((comment)=>(
+          <CommentPage key={comment._id} comment = {comment}/>
+      ))}
+        </>
       )}
     </div>
   );
