@@ -20,8 +20,8 @@ export default function Home() {
         ideas into powerful, responsive web solutions. Explore our platform to
         see how we can bring your tech vision to life.
       </p>
-      <Button className=" flex m-10 p-4">
-        <Link className="flex" href="/dashboard?tab=profile">
+      <Button className=" flex m-20 p-4">
+        <Link className="flex" to="/dashboard?tab=profile">
           Get started <FaArrowRight className=" ml-2 h-5 w-5" />
         </Link>
       </Button>

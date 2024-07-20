@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 export default function CommentPage({ comment, onLike }) {
   const [user, setUser] = useState({});
   const { currentUser } = useSelector((state) => state.user);
+  const id = currentUser._id;
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -42,15 +43,14 @@ export default function CommentPage({ comment, onLike }) {
         <p className=" text-gray-600 dark:text-gray-200 mb-2">
           {comment.content}
         </p>
-        <div className="">
+        <div className="flex items-center pt-2 text-xs border-t dark:border-gray-700 max-w-fit gap-2">
           <button
             type="button"
             onClick={() => onLike(comment._id)}
             className={`text-gray-400 hover:text-blue-500 ${
               currentUser &&
-              comment.likes &&
-              comment.likes.includes(currentUser._id) &&
-              "text-blue-600"
+              comment.Likes.includes(id) &&
+              "!text-blue-600"
             }`}
           >
             <FaThumbsUp className="text-sm" />
