@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 export default function CommentPage({ comment, onLike, ondelete }) {
   const [user, setUser] = useState({});
   const { currentUser } = useSelector((state) => state.user);
-  const id = currentUser._id;
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -53,7 +52,7 @@ export default function CommentPage({ comment, onLike, ondelete }) {
             onClick={() => onLike(comment._id)}
             className={`text-gray-400 hover:text-blue-500 ${
               currentUser &&
-              comment.Likes.includes(id) &&
+              comment.Likes.includes(currentUser._id) &&
               "!text-blue-600"
             }`}
           >
