@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Card, Modal, Button } from "flowbite-react";
 import { Link } from "react-router-dom";
-import {HiOutlineExclamationCircle} from 'react-icons/hi'
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 export default function DashPosts() {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
@@ -48,23 +48,27 @@ export default function DashPosts() {
     }
   };
 
- const handelDeletePost= async()=>{
-  setShowModal(false);
-   try{
-       const res = await fetch(`/api/post/deletepost/${postIdDelete}/${currentUser._id}`,{
-         method: 'DELETE',
-       })
-       const data = await res.json('Post deleted successfully');
-       if(!res.ok){
+  const handelDeletePost = async () => {
+    setShowModal(false);
+    try {
+      const res = await fetch(
+        `/api/post/deletepost/${postIdDelete}/${currentUser._id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const data = await res.json("Post deleted successfully");
+      if (!res.ok) {
         console.log(data.message);
-       }else{
-        setUserPosts((prev)=>prev.filter((post)=>post._id !== postIdDelete));
-       }
-  
-   }catch(error){
-    console.log(error);
-   }
- }
+      } else {
+        setUserPosts((prev) =>
+          prev.filter((post) => post._id !== postIdDelete)
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex justify-center p-4 mt-5">
@@ -76,13 +80,13 @@ export default function DashPosts() {
                 key={index}
                 className="w-full h-96 flex flex-col justify-between overflow-hidden mb-5 hover:scale-105"
               >
-              <Link to={`/post/${post.slug}`}>
-              <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-40 object-cover mt-20"
-                />
-              </Link>
+                <Link to={`/post/${post.slug}`}>
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-40 object-cover mt-20"
+                  />
+                </Link>
                 <div className="p-4 flex flex-col justify-between flex-grow">
                   <Link to="#">
                     <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white overflow-hidden text-ellipsis whitespace-nowrap">
@@ -96,15 +100,19 @@ export default function DashPosts() {
                   </div>
                   <div className="flex items-center justify-between mb-20 ">
                     <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                      <span
-                        onClick={() =>{setShowModal(true)
-                         setPostIdDelete(post._id)}
-                         }
-                        className=" cursor-pointer rounded-lg bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                      >
-                        Delete
-                      </span>
+                      {currentUser.isAdmin && (
+                        <span
+                          onClick={() => {
+                            setShowModal(true);
+                            setPostIdDelete(post._id);
+                          }}
+                          className=" cursor-pointer rounded-lg bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                        >
+                          Delete
+                        </span>
+                      )}
                     </span>
+                   {currentUser.isAdmin && (
                     <span className="text-3xl font-bold text-gray-900 dark:text-white">
                       <Link
                         to={`/update-post/${post._id}`}
@@ -113,6 +121,7 @@ export default function DashPosts() {
                         Edit
                       </Link>
                     </span>
+                   )}
                   </div>
                 </div>
               </Card>

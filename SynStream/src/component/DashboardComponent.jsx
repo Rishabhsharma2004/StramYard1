@@ -26,7 +26,7 @@ export default function DashboardComponent() {
     datasets: [
       {
         label: "Posts",
-        data: [0, 0, 0, 0, 0, lastMonthPosts, totalPosts],
+        data: [0, 2, 10, 6, 7, lastMonthPosts, totalPosts],
         fill: false,
         borderColor: "#FDBA74",
         tension: 0.1,
