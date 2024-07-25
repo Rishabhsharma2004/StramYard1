@@ -44,6 +44,7 @@ export default function Header() {
     navigate(`/search?${searchQuery}`);
   }
   return (
+    <>
     <Navbar className='border-b-2 sticky'>
        <Link to= "/" className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
          <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>TechStack</span> Blog
@@ -111,5 +112,6 @@ export default function Header() {
             </Navbar.Link>
          </Navbar.Collapse>
     </Navbar>
+    </>
   )
 }
