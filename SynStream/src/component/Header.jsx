@@ -6,6 +6,8 @@ import {FaMoon, FaSun} from 'react-icons/fa'
 import { useSelector , useDispatch} from 'react-redux'
 import { toggletheme } from '../redux/theme/themeSlice';
 import {signOutSuccess} from "../redux/user/userSlice"
+import { HiCog, HiCurrencyDollar, HiLogout, HiViewGrid } from "react-icons/hi";
+import { GrUserManager } from "react-icons/gr";
 export default function Header() {
     const path = useLocation().pathname;
     const dispatch = useDispatch();
@@ -54,7 +56,7 @@ export default function Header() {
             type='text'
             placeholder='Search...'
             rightIcon={AiOutlineSearch}
-            className='hidden lg:inline'
+            className='hidden lg:inline '
             value={searchTerm}
             onChange={(e)=>setSearchTerm(e.target.value)}
          />
@@ -63,10 +65,10 @@ export default function Header() {
          <AiOutlineSearch />
        </Button>
        <div className='flex gap-2 md:order-2 '>
-         <Button className='w-12 h-10 hidden sm:inline sm:text-2xl ' color='gray' pill onClick={()=> dispatch(toggletheme())} >
-         {theme === 'light' ? <FaSun /> : <FaMoon/>}
+         <Button className={`sm:flex hidden w-14 h-8 p-0 items-center justify-start mt-2 mr-5 border-2 ${theme === 'light' ? ' border-orange-400' : ' border-gray-100'}`} color='gray' pill  onClick={()=> dispatch(toggletheme())} >
+         {theme === 'light' ? <FaSun color ='orange'className='transform translate-x-0 ease-in-out p-[0.5px]  text-xl ml-[-10px] ' /> : <FaMoon color='gray' className='transform translate-x-6 ease-out  text-xl ml-[-14px] p-0'/>}
          </Button>
-
+         
 
          {currentUser ?(
            <Dropdown arrowIcon ={false} inline label = {
@@ -74,18 +76,27 @@ export default function Header() {
               alt='user'
               img={currentUser.profilePicture}
               rounded
+              bordered
+              color="purple"
+              status="online"
             />
            }>
              <Dropdown.Header >
              <span className='block text-sm'>UserName: {currentUser.username}</span>
-             <span className='block text-sm font-medium truncate'>Email: {currentUser.email}</span>
+             <span className='block text-sm font-medium truncate mb-5'>Email: {currentUser.email}</span>
                
              </Dropdown.Header>
             <Link to={'/dashboard?tab=profile'}>
-               <Dropdown.Item>Profile</Dropdown.Item>
+               <Dropdown.Item icon={GrUserManager}>Profile</Dropdown.Item>
             </Link>
+            <Link to={'/dashboard?tab=dash'}>
+                <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
+            </Link>
+            <Dropdown.Item icon={(theme === 'light' ? FaSun: FaMoon)} onClick={()=> dispatch(toggletheme())}>
+            {theme === 'light' ? 'Light' : 'Dark'}
+            </Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
+            <Dropdown.Item icon={HiLogout} onClick={handleSignOut}>Sign Out</Dropdown.Item>
            </Dropdown>
          ):(
           <Link to='/sign-in'> 
