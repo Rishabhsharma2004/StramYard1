@@ -7,6 +7,7 @@ import {
   BsTwitter,
   BsGithub,
   BsDribbble,
+  BsLinkedin
 } from "react-icons/bs";
 export default function FooterCom() {
   return (
@@ -29,11 +30,11 @@ export default function FooterCom() {
               <Footer.Title title="About" />
               <Footer.LinkGroup col>
                 <Footer.Link
-                  href="https://www.100jsproject.com"
+                  href="https://heyrishabh.netlify.app"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  100 Js Projects
+                  Portfolio
                 </Footer.Link>
                 <Footer.Link
                   href="/about"
@@ -80,11 +81,11 @@ export default function FooterCom() {
             year={new Date().getFullYear()}
           />
           <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
-            <Footer.Icon href="#" icon={BsFacebook} />
-            <Footer.Icon href="#" icon={BsInstagram} />
-            <Footer.Icon href="#" icon={BsTwitter} />
-            <Footer.Icon href="#" icon={BsGithub} />
-            <Footer.Icon href="#" icon={BsDribbble} />
+            <Footer.Icon target="_blank" href="https://www.linkedin.com/in/rishabh-sharma-55b735229/" icon={BsLinkedin} />
+            <Footer.Icon target="_blank" href="https://github.com/Rishabhsharma2004" icon={BsGithub} />
+            <Footer.Icon target="_blank" href="https://www.instagram.com/cs__wala_r553" icon={BsInstagram} />
+            {/* <Footer.Icon target="_blank" href="#" icon={BsTwitter} /> */}
+            <Footer.Icon target="_blank" href="#" icon={BsFacebook} />
           </div>
         </div>
       </div>

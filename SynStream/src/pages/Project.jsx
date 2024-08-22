@@ -1,38 +1,38 @@
 // src/components/ProjectSection.js
 import React from 'react';
-
+import { Link } from "react-router-dom";
 const projects = [
   {
     id: 1,
-    image: 'https://picsum.photos/seed/project1/600/400',
+    image: 'p1.png',
     title: 'Project One',
     description: 'A brief description of Project One.',
     link: '#'
   },
   {
     id: 2,
-    image: 'https://picsum.photos/seed/project2/600/400',
+    image: 'sae.png',
     title: 'Project Two',
     description: 'A brief description of Project Two.',
     link: '#'
   },
   {
     id: 3,
-    image: 'https://picsum.photos/seed/project3/600/400',
+    image: 'port.png',
     title: 'Project Three',
     description: 'A brief description of Project Three.',
-    link: '#'
+    link: '/https://heyrishabh.netlify.app'
   },
   {
     id: 4,
-    image: 'https://picsum.photos/seed/project4/600/400',
+    image: 'meet.png',
     title: 'Project Four',
     description: 'A brief description of Project Four.',
-    link: '#'
+    link: 'https://meetide.netlify.app'
   },
   {
     id: 5,
-    image: 'https://picsum.photos/seed/project5/600/400',
+    image: 'vbex.png',
     title: 'Project Five',
     description: 'A brief description of Project Five.',
     link: '#'
@@ -74,7 +74,7 @@ const ProjectCard = ({ project }) => {
       <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
         <h3 className="text-white text-xl font-semibold mb-2">{project.title}</h3>
         <p className="text-white mb-4 px-4">{project.description}</p>
-        <a href={project.link} className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors duration-300">View Project</a>
+        <Link href={project.link} target='_blank' className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors duration-300">View Project</Link>
       </div>
     </div>
   );
@@ -82,8 +82,8 @@ const ProjectCard = ({ project }) => {
 
 const ProjectSection = () => {
   return (
-    <section className="p-6 bg-gray-900">
-      <h2 className="text-3xl font-bold text-center text-white mb-6">Our Projects</h2>
+    <section className="p-6 bg-white dark:bg-gray-900">
+      <h2 className="text-3xl font-bold text-center text-black dark:text-white mb-6">Our Projects</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {projects.map(project => (
           <ProjectCard key={project.id} project={project} />
