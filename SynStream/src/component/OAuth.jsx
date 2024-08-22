@@ -6,7 +6,7 @@ import { app } from '../firebase';
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
-
+import { FcGoogle } from "react-icons/fc";
 export default function OAuth() {
     const auth = getAuth(app);
     const dispatch = useDispatch();
@@ -35,8 +35,8 @@ export default function OAuth() {
        }
     }
   return (
-    <Button type='button' gradientDuoTone= 'pinkToOrange' outline onClick={handleGoogleClick}>
-      <AiFillGoogleCircle className= 'w-7 h-7 mr-2' />
+    <Button type='button'  outline onClick={handleGoogleClick}>
+      <FcGoogle className= 'w-7 h-7 mr-2' />
       Continue with Google
     </Button>
   )

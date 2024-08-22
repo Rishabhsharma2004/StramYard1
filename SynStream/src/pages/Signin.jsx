@@ -1,4 +1,4 @@
-import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import { Alert, Button, Label, Modal, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,13 +8,16 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import OAuth from "../component/OAuth";
+
 export default function SignIn() {
-  const [formData, setformData] = useState({});
+  const [formData, setFormData] = useState({});
   const { loading, error: errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(true);
+
   const handleChange = (e) => {
-    setformData({ ...formData, [e.target.id]: e.target.value.trim() });
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
 
   const handleSubmit = async (e) => {
@@ -36,79 +39,86 @@ export default function SignIn() {
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate("/");
+        setShowModal(false); // Close the modal on successful sign-in
       }
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
   };
+
   return (
-    <div className="min-h-screen mt-20">
-      <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:item-center gap-5">
-        {/* left */}
-        <div className="flex-1">
-          <Link to="/" className="  font-bold dark:text-white text-4xl">
-            <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
-              TechStack
-            </span>{" "}
-            Blog
-          </Link>
-          <p className="text-sm mt-5">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet sint
-            debitis ipsum molestiae. Laboriosam quod praesentium commodi.
-            Numquam quae, odit ipsam hic, omnis rerum, earum commodi sit
-            accusantium veniam in!
-          </p>
-        </div>
-        {/* right */}
-        <div className="flex-1">
-          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            <div>
-              <Label value="Your email" />
-              <TextInput
-                placeholder="name@gamil.com"
-                type="email"
-                id="email"
-                onChange={handleChange}
-              />
+    <div className="min-h-screen flex flex-col">
+      {/* Modal */}
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        popup
+        size="md"
+      >
+       
+        <Modal.Body>
+          <div className="mt-5">
+            <div className=" font-semibold flex items-center justify-center text-2xl mb-5">Sign in</div>
+            <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:item-center gap-5">
+              {/* Right */}
+              
+              <div className="flex-1">
+                <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                  <div>
+                    <Label value="Your email" />
+                    <TextInput
+                      placeholder="name@gmail.com"
+                      type="email"
+                      id="email"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div>
+                    <Label value="Your password" />
+                    <TextInput
+                      placeholder="........."
+                      type="password"
+                      id="password"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <Button
+                    gradientDuoTone="purpleToPink"
+                    type="submit"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <Spinner size="sm" />
+                        <span className="pl-3">Loading...</span>
+                      </>
+                    ) : (
+                      "Sign In"
+                    )}
+                  </Button>
+                  <OAuth />
+                </form>
+                <div className="flex gap-2 text-sm mt-5">
+                  <span>Don't have an account?</span>
+                  <Link to="/sign-up" className="text-blue-500">
+                    Sign Up
+                  </Link>
+                </div>
+                {errorMessage && (
+                  <Alert className="mt-5" color="failure">
+                    {errorMessage}
+                  </Alert>
+                )}
+              </div>
             </div>
-            <div>
-              <Label value="Your password" />
-              <TextInput
-                placeholder="........."
-                type="password"
-                id="password"
-                onChange={handleChange}
-              />
-            </div>
-            <Button
-              gradientDuoTone="purpleToPink"
-              type="submit"
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <Spinner size="sm" />
-                  <span className="pl-3">Loding...</span>
-                </>
-              ) : (
-                "Sign In"
-              )}
-            </Button>
-            <OAuth />
-          </form>
-          <div className="flex gap-2 text-sm mt-5">
-            <span>Dont Have an account?</span>
-            <Link to="/sign-up" className="text-blue-500">
-              Sign Up
-            </Link>
           </div>
-          {errorMessage && (
-            <Alert className="mt-5" color="failure">
-              {errorMessage}
-            </Alert>
-          )}
-        </div>
-      </div>
+        </Modal.Body>
+      </Modal>
+
+      {/* Footer */}
+      {/* <footer className="mt-auto bg-gray-800 text-white p-4 text-center">
+        <p>&copy; {new Date().getFullYear()} Your Company. All rights reserved.</p>
+      </footer> */}
     </div>
   );
 }

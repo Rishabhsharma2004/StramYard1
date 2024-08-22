@@ -24,7 +24,7 @@ export default function Home() {
       (currentDate - startDate) / (1000 * 60 * 60 * 24)
     );
     const techIndex = diffInDays % techs.length;
-    const techIndex2 = (diffInDays + 1) % techs.length;
+    const techIndex2 = (diffInDays + techIndex) % techs.length;
     setTech(techs[techIndex]);
     setTech2(techs[techIndex2]);
   }
@@ -169,7 +169,7 @@ export default function Home() {
                 </CircularProgress>
                 <CardContent>
                   <Typography level="body-md">Tech of the Day</Typography>
-                  <Typography level="h2">{tech}</Typography>
+                  <Typography level="h3">{tech}</Typography>
                 </CardContent>
               </CardContent>
               <CardActions>
@@ -204,7 +204,7 @@ export default function Home() {
                 </CircularProgress>
                 <CardContent>
                   <Typography level="body-md">Tech of the Day</Typography>
-                  <Typography level="h2">{tech2}</Typography>
+                  <Typography level="h3">{tech2}</Typography>
                 </CardContent>
               </CardContent>
               <CardActions>
