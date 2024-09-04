@@ -9,7 +9,7 @@ import {
 } from "../redux/user/userSlice";
 import OAuth from "../component/OAuth";
 
-export default function SignIn() {
+const SignIn=()=> {
   const [formData, setFormData] = useState({});
   const { loading, error: errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -122,3 +122,6 @@ export default function SignIn() {
     </div>
   );
 }
+
+
+export default SignIn
