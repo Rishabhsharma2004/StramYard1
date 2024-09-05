@@ -1,12 +1,12 @@
 import express from "express";
 import mongoose, { connect } from "mongoose";
 import dotenv from "dotenv";
-import userRoutes from "./routes/user.route.js";
-import authRoutes from "./routes/auth.route.js";
+import userRoutes from "./api/routes/user.route.js";
+import authRoutes from "./api/routes/auth.route.js";
 import cookieParser from "cookie-parser";
-import postRoutes from './routes/post.route.js';
-import commentRoutes from './routes/comment.route.js';
-import EmailRoutes from './routes/EmailRoutes.js'
+import postRoutes from './api/routes/post.route.js';
+import commentRoutes from './api/routes/comment.route.js';
+import EmailRoutes from './api/routes/EmailRoutes.js'
 import path from 'path'
 import { fileURLToPath } from "url";
 dotenv.config();
