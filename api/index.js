@@ -8,8 +8,10 @@ import postRoutes from './routes/post.route.js';
 import commentRoutes from './routes/comment.route.js';
 import EmailRoutes from './routes/EmailRoutes.js'
 import path from 'path'
+import { fileURLToPath } from "url";
 dotenv.config();
-
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename);
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
@@ -19,7 +21,6 @@ mongoose
   });
 
   
-const __dirname = path.resolve();
 const app = express();
 
 app.use(express.json());
@@ -36,8 +37,9 @@ app.use('/api/comment', commentRoutes);
 app.use('/api/email', EmailRoutes);
 
 app.use(express.static(path.join(__dirname, '/SynStream/dist')));
+
 app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, 'SynStream', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname,"/SynStream/dist/index.html"));
 })
 
 app.use((err, req, res, next) => {

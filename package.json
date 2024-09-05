@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "nodemon api/index.js",
     "start": "node api/index.js",
-    "build": "npm install && npm install --prefix SynStream && npm run build --prefix SynStream"
+    "build": "npm install --prefix ./SynStream && npm run build --prefix ./SynStream && npm install"
   },
   "keywords": [],
   "author": "",
