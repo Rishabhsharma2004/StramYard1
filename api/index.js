@@ -36,10 +36,10 @@ app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
 app.use('/api/email', EmailRoutes);
 
-app.use(express.static(path.join(__dirname, '/SynStream/dist')));
+app.use(express.static(path.join(__dirname, './SynStream/dist')));
 
 app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname,"/SynStream/dist/index.html"));
+  res.sendFile(path.join(__dirname,"./SynStream/dist/index.html"));
 })
 
 app.use((err, req, res, next) => {
