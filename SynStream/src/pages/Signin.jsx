@@ -1,4 +1,11 @@
-import { Alert, Button, Label, Modal, Spinner, TextInput } from "flowbite-react";
+import {
+  Alert,
+  Button,
+  Label,
+  Modal,
+  Spinner,
+  TextInput,
+} from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +16,7 @@ import {
 } from "../redux/user/userSlice";
 import OAuth from "../component/OAuth";
 
-const SignIn=()=> {
+const SignIn = () => {
   const [formData, setFormData] = useState({});
   const { loading, error: errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -55,13 +62,14 @@ const SignIn=()=> {
         popup
         size="md"
       >
-       
         <Modal.Body>
           <div className="mt-5">
-            <div className=" font-semibold flex items-center justify-center text-2xl mb-5">Sign in</div>
+            <div className=" font-semibold flex items-center justify-center text-2xl mb-5">
+              Sign in
+            </div>
             <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:item-center gap-5">
               {/* Right */}
-              
+
               <div className="flex-1">
                 <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                   <div>
@@ -121,7 +129,6 @@ const SignIn=()=> {
       </footer> */}
     </div>
   );
-}
+};
 
-
-export default SignIn
+export default SignIn;
